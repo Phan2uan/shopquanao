@@ -3,188 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Quần Áo - Modern Demo</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #6366f1;
-            --secondary: #a855f7;
-            --bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
-            --text: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
-
-        body {
-            background-color: var(--bg);
-            background-image: radial-gradient(circle at top right, #1e1b4b, transparent),
-                              radial-gradient(circle at bottom left, #2e1065, transparent);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        /* Tabs Selection */
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            padding: 10px 25px;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: var(--primary);
-            box-shadow: 0 0 15px var(--primary);
-        }
-
-        /* Sections */
-        .section {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Filter Bar */
-        .filter-bar {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        input, select {
-            padding: 12px 20px;
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: var(--text);
-            outline: none;
-        }
-
-        .btn-action {
-            padding: 12px 25px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
-            transition: transform 0.2s;
-        }
-
-        .btn-action:hover {
-            transform: scale(1.05);
-        }
-
-        /* Product Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .card h3 { margin-bottom: 10px; font-size: 1.3rem; }
-        .card .type { color: #94a3b8; font-size: 0.9rem; margin-bottom: 15px; display: block; }
-        .card .price { font-size: 1.5rem; font-weight: bold; color: #4ade80; }
-        .card .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; }
-
-        /* Forms */
-        .auth-container {
-            max-width: 450px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; margin-bottom: 8px; color: #94a3b8; }
-        .form-group input { width: 100%; }
-
-        /* Notifications */
-        #toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px 30px;
-            border-radius: 12px;
-            background: var(--primary);
-            color: white;
-            display: none;
-            z-index: 100;
-        }
-
-    </style>
+    <title>Shop Quần Áo - Modern Admin</title>
+    <!-- Modern Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Separate CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
+    <div class="container" id="app">
         <header>
             <h1>SHOP QUẦN ÁO</h1>
-            <p>Hệ thống Quản lý Demo - Spring Boot Backend</p>
+            <p>Hệ thống Quản lý Demo • Spring Boot API • Premium UI</p>
         </header>
 
         <div class="tabs">
@@ -193,202 +23,94 @@
             <button class="tab-btn" onclick="showSection('auth')">Tài khoản</button>
         </div>
 
-        <!-- Section Products -->
+        <!-- Section: Product List -->
         <section id="products" class="section active">
             <div class="filter-bar">
-                <input type="text" id="nameFilter" placeholder="Tìm theo tên...">
-                <input type="number" id="minPrice" placeholder="Giá tối thiểu">
-                <input type="number" id="maxPrice" placeholder="Giá tối đa">
-                <button class="btn-action" onclick="fetchProducts()">Lọc ngay</button>
+                <input type="text" id="nameFilter" placeholder="Tìm theo tên sản phẩm...">
+                <input type="number" id="minPrice" placeholder="Giá từ">
+                <input type="number" id="maxPrice" placeholder="Đến giá">
+                <button class="btn-action" onclick="fetchProducts()">Lọc kết quả</button>
             </div>
+            
             <div class="grid" id="productGrid">
-                <!-- Data will be loaded here -->
-                <p>Đang tải sản phẩm...</p>
+                <!-- Data injected by app.js -->
             </div>
         </section>
 
-        <!-- Section Add Product -->
+        <!-- Section: Add Product -->
         <section id="add-product" class="section">
             <div class="auth-container">
-                <h2 style="margin-bottom: 20px;">Thêm sản phẩm mới</h2>
+                <h2 style="margin-bottom: 25px; text-align: center;">Thêm Sản Phẩm</h2>
                 <div class="form-group">
                     <label>Tên sản phẩm</label>
-                    <input type="text" id="pName">
+                    <input type="text" id="pName" placeholder="Áo thun Polo...">
                 </div>
                 <div class="form-group">
-                    <label>Loại</label>
-                    <input type="text" id="pType">
+                    <label>Loại sản phẩm</label>
+                    <input type="text" id="pType" placeholder="T-Shirt, Jeans...">
                 </div>
                 <div class="form-group">
-                    <label>Giá</label>
-                    <input type="number" id="pPrice">
+                    <label>Giá niêm yết (đ)</label>
+                    <input type="number" id="pPrice" placeholder="Ví dụ: 250000">
                 </div>
                 <div class="form-group">
-                    <label>Số lượng</label>
-                    <input type="number" id="pQty">
+                    <label>Số lượng kho</label>
+                    <input type="number" id="pQty" placeholder="0">
                 </div>
-                <button class="btn-action" style="width: 100%" onclick="addProduct()">Lưu sản phẩm</button>
+                <button class="btn-action" style="width: 100%" onclick="addProduct()">Tạo sản phẩm</button>
             </div>
         </section>
 
-        <!-- Section Auth -->
+        <!-- Section: Authentication -->
         <section id="auth" class="section">
             <div class="auth-container">
+                <!-- Login Form -->
                 <div id="loginForm">
-                    <h2 style="margin-bottom: 20px;">Đăng nhập</h2>
+                    <h2 style="margin-bottom: 25px; text-align: center;">Đăng Nhập</h2>
                     <div class="form-group">
-                        <label>Tài khoản</label>
-                        <input type="text" id="loginUser">
+                        <label>Tên tài khoản</label>
+                        <input type="text" id="loginUser" placeholder="Nhập username">
                     </div>
                     <div class="form-group">
                         <label>Mật khẩu</label>
-                        <input type="password" id="loginPass">
+                        <input type="password" id="loginPass" placeholder="••••••••">
                     </div>
-                    <button class="btn-action" style="width: 100%" onclick="login()">Đăng nhập</button>
-                    <p style="margin-top: 15px; text-align: center; cursor: pointer; color: var(--primary)" onclick="toggleAuth()">Chưa có tài khoản? Đăng ký</p>
+                    <button class="btn-action" style="width: 100%" onclick="login()">Đăng nhập ngay</button>
+                    <p style="margin-top: 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                        Chưa có tài khoản? 
+                        <span style="color: var(--primary); cursor: pointer; font-weight: 600;" onclick="toggleAuth()">Đăng ký</span>
+                    </p>
                 </div>
 
+                <!-- Register Form -->
                 <div id="registerForm" style="display: none;">
-                    <h2 style="margin-bottom: 20px;">Đăng ký</h2>
+                    <h2 style="margin-bottom: 25px; text-align: center;">Tạo Tài Khoản</h2>
                     <div class="form-group">
-                        <label>Tài khoản</label>
-                        <input type="text" id="regUser">
+                        <label>Username</label>
+                        <input type="text" id="regUser" placeholder="Tên đăng nhập">
                     </div>
                     <div class="form-group">
-                        <label>Mật khẩu</label>
-                        <input type="password" id="regPass">
+                        <label>Password</label>
+                        <input type="password" id="regPass" placeholder="Mật khẩu bảo mật">
                     </div>
                     <div class="form-group">
-                        <label>Họ tên</label>
-                        <input type="text" id="regName">
+                        <label>Họ tên đầy đủ</label>
+                        <input type="text" id="regName" placeholder="Ví dụ: Nguyễn Văn A">
                     </div>
-                    <button class="btn-action" style="width: 100%" onclick="register()">Đăng ký</button>
-                    <p style="margin-top: 15px; text-align: center; cursor: pointer; color: var(--primary)" onclick="toggleAuth()">Đã có tài khoản? Đăng nhập</p>
+                    <button class="btn-action" style="width: 100%" onclick="register()">Đăng ký thành viên</button>
+                    <p style="margin-top: 20px; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+                        Đã có tài khoản? 
+                        <span style="color: var(--primary); cursor: pointer; font-weight: 600;" onclick="toggleAuth()">Quay lại đăng nhập</span>
+                    </p>
                 </div>
             </div>
         </section>
     </div>
 
-    <div id="toast">Thông báo!</div>
+    <!-- Notification system -->
+    <div id="toast">Thông báo hệ thống</div>
 
-    <script>
-        // Switch Sections
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            event.target.classList.add('active');
-
-            if(id === 'products') fetchProducts();
-        }
-
-        function toggleAuth() {
-            const login = document.getElementById('loginForm');
-            const reg = document.getElementById('registerForm');
-            if(login.style.display === 'none') {
-                login.style.display = 'block';
-                reg.style.display = 'none';
-            } else {
-                login.style.display = 'none';
-                reg.style.display = 'block';
-            }
-        }
-
-        function notify(msg) {
-            const toast = document.getElementById('toast');
-            toast.innerText = msg;
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 3000);
-        }
-
-        // --- API Integration ---
-
-        async function fetchProducts() {
-            const name = document.getElementById('nameFilter').value;
-            const min = document.getElementById('minPrice').value;
-            const max = document.getElementById('maxPrice').value;
-
-            let url = `/products?name=${name}`;
-            if(min) url += `&minPrice=${min}`;
-            if(max) url += `&maxPrice=${max}`;
-
-            try {
-                const res = await fetch(url);
-                const data = await res.json();
-                renderProducts(data);
-            } catch (e) {
-                notify("Lỗi kết nối Server!");
-            }
-        }
-
-        function renderProducts(products) {
-            const grid = document.getElementById('productGrid');
-            grid.innerHTML = products.map(p => `
-                <div class="card">
-                    <h3>${p.name}</h3>
-                    <span class="type">${p.type} - Size ${p.size} - Màu ${p.color}</span>
-                    <div class="price">${p.price.toLocaleString()} đ</div>
-                    <div class="footer">
-                        <span>Kho: ${p.quantity}</span>
-                        <button class="btn-action" style="padding: 5px 15px; font-size: 0.8rem">Sửa</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        async function addProduct() {
-            const body = {
-                name: document.getElementById('pName').value,
-                type: document.getElementById('pType').value,
-                price: Number(document.getElementById('pPrice').value),
-                quantity: Number(document.getElementById('pQty').value)
-            };
-
-            try {
-                const res = await fetch('/products', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(body)
-                });
-                if(res.ok) {
-                    notify("Thêm thành công!");
-                    showSection('products');
-                }
-            } catch (e) {
-                notify("Thêm thất bại!");
-            }
-        }
-
-        async function login() {
-            const res = await fetch('/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: document.getElementById('loginUser').value,
-                    password: document.getElementById('loginPass').value
-                })
-            });
-            const data = await res.json();
-            notify(data.message);
-        }
-
-        async function register() {
-            const res = await fetch('/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    username: document.getElementById('regUser').value,
-                    password: document.getElementById('regPass').value,
-                    name: document.getElementById('regName').value
-                })
-            });
-            const data = await res.json();
-            notify(data.message);
-        }
-
-        // Init
-        fetchProducts();
-
-    </script>
+    <!-- Logic Script -->
+    <script src="app.js"></script>
 </body>
 </html>
