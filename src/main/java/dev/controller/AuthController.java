@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "*") // Thêm CORS
 public class AuthController {
 
     @Autowired
@@ -16,17 +17,12 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        // ✅ Sửa: gửi nguyên request object, không phải từng trường
-        return ResponseEntity.ok(
-                authService.register(request)  // Chỉ cần gửi request
-        );
+        return ResponseEntity.ok(authService.register(request));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(
-                authService.login(request.getUsername(), request.getPassword())
-        );
+        return ResponseEntity.ok(authService.login(request.getUsername(), request.getPassword()));
     }
 
     @GetMapping("/test")

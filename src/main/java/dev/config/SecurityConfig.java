@@ -18,9 +18,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.configure(http)) // ✅ Nên thêm
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll() // 👈 cho phép auth
-                        .anyRequest().permitAll() // 👈 tạm mở hết
+                        // Cho phép truy cập static resources
+                        .requestMatchers("/", "/index.html", "/style.css", "/app.js", "/static/**").permitAll()
+                        // Cho phép auth API
+                        .requestMatchers("/auth/**").permitAll()
+                        // Cho phép products API (tạm thời)
+                        .requestMatchers("/products/**").permitAll()
+                        .anyRequest().permitAll()
                 );
 
         return http.build();

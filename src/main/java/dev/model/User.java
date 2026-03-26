@@ -22,4 +22,5 @@ public class User {
     private String gender;
 
     private String token;
+    private String role;   // ✅ THÊM: "ADMIN" hoặc "USER"
 }
