@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản lý Shop</title>
+    <title>Phan2uanShop</title>
     <link rel="stylesheet" href="style.css">
     <style>
         /* Style cho modal */
@@ -14,7 +14,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
         .modal-content {
@@ -60,6 +60,11 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         .form-grid {
             display: grid;
@@ -71,6 +76,41 @@
             display: flex;
             gap: 10px;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .filter-controls input {
+            flex: 1;
+            min-width: 150px;
+        }
+        .hero-banner {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            .filter-controls {
+                flex-direction: column;
+            }
+            .filter-controls input, .filter-controls button {
+                width: 100%;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-banner {
+                padding: 20px;
+            }
+            .hero-banner h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -78,7 +118,7 @@
 <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 20px;">
     <!-- Header -->
     <div class="header">
-        <h1>🏪 Quản lý Cửa hàng</h1>
+        <h1 id="shopTitle">🛍️ Phan2uanShop</h1>
         <div>
             <button id="showRegisterBtn" class="btn btn-success">Đăng ký</button>
             <button id="showLoginBtn" class="btn btn-primary">Đăng nhập</button>
@@ -86,21 +126,58 @@
         </div>
     </div>
 
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <h1>🛍️ Summer Sale 2024</h1>
+        <p>Giảm giá lên đến 50% cho tất cả sản phẩm | Miễn phí vận chuyển</p>
+    </div>
+
+    <!-- Form thêm sản phẩm - CHỈ ADMIN MỚI THẤY -->
+    <div id="addProductForm" style="background: #f7fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: none;">
+        <h2>➕ Thêm sản phẩm mới</h2>
+        <div class="form-grid">
+            <input type="text" id="productName" placeholder="Tên sản phẩm">
+            <input type="text" id="productType" placeholder="Loại sản phẩm">
+            <input type="number" id="productPrice" placeholder="Giá (VNĐ)">
+            <input type="number" id="productQuantity" placeholder="Số lượng">
+            <input type="text" id="productSize" placeholder="Size (S, M, L, XL)">
+            <input type="text" id="productColor" placeholder="Màu sắc">
+            <button id="addProductBtn" class="btn btn-success">➕ Thêm sản phẩm</button>
+        </div>
+    </div>
+
     <!-- Modal Đăng ký -->
     <div id="registerModal" class="modal">
         <div class="modal-content">
             <h2>Đăng ký tài khoản</h2>
-            <input type="text" id="regUsername" placeholder="Tên đăng nhập *">
-            <input type="password" id="regPassword" placeholder="Mật khẩu *">
-            <input type="text" id="regName" placeholder="Họ tên *">
-            <input type="date" id="regBirthDate" placeholder="Ngày sinh">
+
+            <label for="regUsername">Tên đăng nhập *</label>
+            <input type="text" id="regUsername" placeholder="Nhập tên đăng nhập">
+
+            <label for="regEmail">Email *</label>
+            <input type="email" id="regEmail" placeholder="Nhập email">
+
+            <label for="regPassword">Mật khẩu *</label>
+            <input type="password" id="regPassword" placeholder="Nhập mật khẩu">
+
+            <label for="regConfirmPassword">Xác nhận mật khẩu *</label>
+            <input type="password" id="regConfirmPassword" placeholder="Nhập lại mật khẩu">
+
+            <label for="regName">Họ và tên *</label>
+            <input type="text" id="regName" placeholder="Nhập họ và tên">
+
+            <label for="regBirthDate">Ngày sinh</label>
+            <input type="date" id="regBirthDate">
+
+            <label for="regGender">Giới tính</label>
             <select id="regGender">
                 <option value="">Chọn giới tính</option>
                 <option value="male">Nam</option>
                 <option value="female">Nữ</option>
                 <option value="other">Khác</option>
             </select>
-            <button id="submitRegisterBtn" class="btn btn-success" style="width: 100%;">Đăng ký</button>
+
+            <button id="submitRegisterBtn" class="btn btn-success" style="width: 100%; margin-top: 15px;">Đăng ký</button>
             <button id="closeRegisterModal" class="btn" style="width: 100%; margin-top: 10px; background: #ccc;">Đóng</button>
         </div>
     </div>
@@ -109,25 +186,39 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h2>Đăng nhập</h2>
-            <input type="text" id="loginUsername" placeholder="Tên đăng nhập">
-            <input type="password" id="loginPassword" placeholder="Mật khẩu">
-            <button id="submitLoginBtn" class="btn btn-primary" style="width: 100%;">Đăng nhập</button>
+            <label for="loginUsername">Tên đăng nhập</label>
+            <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập">
+
+            <label for="loginPassword">Mật khẩu</label>
+            <input type="password" id="loginPassword" placeholder="Nhập mật khẩu">
+
+            <button id="submitLoginBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Đăng nhập</button>
             <button id="closeLoginModal" class="btn" style="width: 100%; margin-top: 10px; background: #ccc;">Đóng</button>
         </div>
     </div>
 
-    <!-- Modal Chỉnh sửa Sản phẩm (ĐÃ SỬA ID) -->
+    <!-- Modal Chỉnh sửa Sản phẩm -->
     <div id="editModal" class="modal">
         <div class="modal-content">
             <h2>✏️ Chỉnh sửa sản phẩm</h2>
-
             <input type="hidden" id="editProductId">
 
-            <input type="text" id="editProductName" placeholder="Tên sản phẩm *">
-            <input type="text" id="editProductType" placeholder="Loại sản phẩm">
-            <input type="number" id="editProductPrice" placeholder="Giá *">
-            <input type="number" id="editProductQuantity" placeholder="Số lượng *">
-            <input type="text" id="editProductSize" placeholder="Size">
+            <label for="editProductName">Tên sản phẩm *</label>
+            <input type="text" id="editProductName" placeholder="Nhập tên sản phẩm">
+
+            <label for="editProductType">Loại sản phẩm</label>
+            <input type="text" id="editProductType" placeholder="Nhập loại sản phẩm">
+
+            <label for="editProductPrice">Giá *</label>
+            <input type="number" id="editProductPrice" placeholder="Nhập giá">
+
+            <label for="editProductQuantity">Số lượng *</label>
+            <input type="number" id="editProductQuantity" placeholder="Nhập số lượng">
+
+            <label for="editProductSize">Size</label>
+            <input type="text" id="editProductSize" placeholder="Size (S, M, L, XL)">
+
+            <label for="editProductColor">Màu sắc</label>
             <input type="text" id="editProductColor" placeholder="Màu sắc">
 
             <button id="submitEditBtn" class="btn btn-primary" style="width: 100%; margin-top: 15px;">Cập nhật sản phẩm</button>
@@ -135,27 +226,13 @@
         </div>
     </div>
 
-    <!-- Form thêm sản phẩm -->
+    <!-- Bộ lọc sản phẩm -->
     <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h2>Thêm sản phẩm mới</h2>
-        <div class="form-grid">
-            <input type="text" id="productName" placeholder="Tên sản phẩm">
-            <input type="text" id="productType" placeholder="Loại">
-            <input type="number" id="productPrice" placeholder="Giá">
-            <input type="number" id="productQuantity" placeholder="Số lượng">
-            <input type="text" id="productSize" placeholder="Size">
-            <input type="text" id="productColor" placeholder="Màu sắc">
-            <button id="addProductBtn" class="btn btn-success">➕ Thêm sản phẩm</button>
-        </div>
-    </div>
-
-    <!-- Filter -->
-    <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-        <h2>Lọc sản phẩm</h2>
+        <h2>🔍 Lọc sản phẩm</h2>
         <div class="filter-controls">
             <input type="text" id="filterName" placeholder="Tìm theo tên">
-            <input type="number" id="filterMinPrice" placeholder="Giá từ">
-            <input type="number" id="filterMaxPrice" placeholder="Giá đến">
+            <input type="number" id="filterMinPrice" placeholder="Giá từ (VNĐ)">
+            <input type="number" id="filterMaxPrice" placeholder="Giá đến (VNĐ)">
             <button id="filterBtn" class="btn btn-primary">🔍 Lọc</button>
             <button id="resetFilterBtn" class="btn">🔄 Reset</button>
         </div>
