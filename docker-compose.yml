@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:16
+
+    container_name: postgres_shop
+
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+
+    container_name: shop_app
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123
