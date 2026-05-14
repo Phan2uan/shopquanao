@@ -16,7 +16,7 @@ services:
       - "5432:5432"
 
   app:
-    build: .
+    image: phan2uan/shopquanao:latest
 
     container_name: shop_app
 
