@@ -112,7 +112,7 @@ function updateUIByRole() {
         if (viewCartBtn) viewCartBtn.style.display = 'none';
     } else {
         // USER hoặc chưa đăng nhập: ẨN form thêm sản phẩm, hiển thị Phan2uanShop
-        if (shopTitle) shopTitle.innerHTML = '🛍️ Phan2uanShop';
+        if (shopTitle) shopTitle.innerHTML = 'DOCKER HUB DEPLOY SUCCESS';
         if (addProductForm) addProductForm.style.display = 'none';
 
         const token = localStorage.getItem('token');
@@ -495,7 +495,7 @@ logoutBtn.onclick = () => {
     const shopTitle = document.getElementById('shopTitle');
     const addProductForm = document.getElementById('addProductForm');
 
-    if (shopTitle) shopTitle.innerHTML = '🛍️ Phan2uanShop';
+    if (shopTitle) shopTitle.innerHTML = 'DOCKER HUB DEPLOY SUCCESS';
     if (addProductForm) addProductForm.style.display = 'none';
 
     // Xóa nút giỏ hàng
@@ -531,7 +531,7 @@ function checkAuthStatus() {
         showLoginBtn.style.display = 'inline-block';
         logoutBtn.style.display = 'none';
 
-        if (shopTitle) shopTitle.innerHTML = '🛍️ Phan2uanShop';
+        if (shopTitle) shopTitle.innerHTML = 'DOCKER HUB DEPLOY SUCCESS';
         if (addProductForm) addProductForm.style.display = 'none';
 
         const cartBtn = document.getElementById('viewCartBtn');
