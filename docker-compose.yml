@@ -2,16 +2,12 @@ services:
 
   postgres:
     image: postgres:16
-
     container_name: postgres_shop
 
     environment:
-      POSTGRES_DB: shop
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-
-    ports:
-      - "5432:5432"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
 
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -24,6 +20,11 @@ services:
       timeout: 5s
       retries: 5
 
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
     networks:
       - shop_network
 
@@ -31,7 +32,6 @@ services:
 
   app:
     image: phan2uan/shopquanao:latest
-
     container_name: shop_app
 
     depends_on:
@@ -39,9 +39,9 @@ services:
         condition: service_healthy
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/shop
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: 123
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
 
     restart: always
 
@@ -51,6 +51,11 @@ services:
       timeout: 10s
       retries: 3
 
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
     networks:
       - shop_network
 
@@ -58,7 +63,6 @@ services:
 
   nginx:
     image: nginx:latest
-
     container_name: nginx_proxy
 
     ports:
@@ -73,6 +77,11 @@ services:
       - app
 
     restart: always
+
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
     networks:
       - shop_network

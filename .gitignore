@@ -40,3 +40,4 @@ build/
 
 ### Application ###
 application.properties   # 👈 THÊM DÒNG NÀY
+.env
