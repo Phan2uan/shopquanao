@@ -34,14 +34,14 @@ services:
     image: phan2uan/shopquanao:latest
     container_name: shop_app
 
-    depends_on:
+    depends_on:git
       postgres:
         condition: service_healthy
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
-      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
-      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
 
     restart: always
 
@@ -52,6 +52,7 @@ services:
       retries: 3
 
     logging:
+      driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
