@@ -21,6 +21,7 @@ services:
       retries: 5
 
     logging:
+      driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
@@ -34,7 +35,7 @@ services:
     image: phan2uan/shopquanao:latest
     container_name: shop_app
 
-    depends_on:git
+    depends_on:
       postgres:
         condition: service_healthy
 
@@ -80,6 +81,7 @@ services:
     restart: always
 
     logging:
+      driver: "json-file"
       options:
         max-size: "10m"
         max-file: "3"
